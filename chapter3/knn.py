@@ -61,18 +61,7 @@ def centralized(X_test, mean_image):
     return X_test
 
 
-if __name__ == '__main__':
-    # group, labels = createDataset()
-    # print( labels=='A' )
-    # print( group[labels=='A',0] )
-    # plt.scatter(group[labels == 'A', 0], group[labels == 'A', 1], color='r', marker='*')
-    # plt.scatter(group[labels == 'B', 0], group[labels == 'B', 1], color='g', marker='+')
-    # plt.show()
-
-    # 测试
-    # y_test_pred = kNN_classify( 1, 'E', group, labels, np.array([[1.0,2.1],[0.4,2.0]]))
-    # print( y_test_pred )
-
+def testMNIST():
     # MNIST dataset
     # 下载一次即可，然后在本地直接使用 D:\workspace\GITHub\jcobra\DL-IR-Practice\chapter3\ml\pymnist
     train_dataset = dsets.MNIST(root='D:\workspace\GITHub\jcobra\DL-IR-Practice\chapter3\ml\pymnist',
@@ -119,3 +108,49 @@ if __name__ == '__main__':
     num_correct = np.sum(y_test_pred == y_test)
     accuracy = float(num_correct) / num_test
     print("Got %d / %d correct => accuracy : %f " % (num_correct, num_test, accuracy))
+
+
+def testCifar10():
+    #Cifar10 dataset
+    train_dataset = dsets.CIFAR10(root='D:\workspace\GITHub\jcobra\DL-IR-Practice\chapter3\ml\pycifar',
+                                  train=True,
+                                  download=False)
+    test_dataset = dsets.CIFAR10(root='D:\workspace\GITHub\jcobra\DL-IR-Practice\chapter3\ml\pycifar',
+                                  train=False,
+                                  download=False)
+    # 加载数据
+    train_loader = DataLoader(dataset=train_dataset,
+                              batch_size=batch_size,
+                              shuffle=True)
+    test_loader = DataLoader(dataset=test_dataset,
+                             batch_size=batch_size,
+                             shuffle=True)
+    # 查看
+    classes = ('plane','car','bird','cat','deer','dog','frog','horse','ship','truck')
+    # AttributeError: 'CIFAR10' object has no attribute 'train_data'，修改为data
+    digit = train_loader.dataset.data[0]
+    plt.imshow( digit, cmap=plt.cm.binary)
+    plt.show()
+    # AttributeError: 'CIFAR10' object has no attribute 'label_names'
+    #print( "{0}".format(train_dataset.data.size))
+    #print(classes[train_loader.dataset.label_names[0]])
+
+
+
+if __name__ == '__main__':
+    # group, labels = createDataset()
+    # print( labels=='A' )
+    # print( group[labels=='A',0] )
+    # plt.scatter(group[labels == 'A', 0], group[labels == 'A', 1], color='r', marker='*')
+    # plt.scatter(group[labels == 'B', 0], group[labels == 'B', 1], color='g', marker='+')
+    # plt.show()
+
+    # 测试
+    # y_test_pred = kNN_classify( 1, 'E', group, labels, np.array([[1.0,2.1],[0.4,2.0]]))
+    # print( y_test_pred )
+
+    # test MNIST
+    #testMNIST()
+
+    # test Cifar10
+    testCifar10()
