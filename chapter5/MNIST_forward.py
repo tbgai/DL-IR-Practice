@@ -34,6 +34,7 @@ def NForword(network, x):
 
 
 if __name__ == '__main__':
+
     # MNIST dataset
     # 下载一次即可，然后在本地直接使用 D:\workspace\GITHub\jcobra\DL-IR-Practice\ml\pymnist
     train_dataset = dsets.MNIST(root='D:\workspace\GITHub\jcobra\DL-IR-Practice\ml\pymnist',
@@ -55,6 +56,7 @@ if __name__ == '__main__':
         if p == labels[i]:
             accuracy_cnt += 1
     print("Accuracy: " + str(float(accuracy_cnt) / len(x) * 100) + "%")
+
 
 
 
